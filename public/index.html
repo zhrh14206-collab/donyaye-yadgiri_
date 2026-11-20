@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دنیای یادگیری</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial;background:#f3f6fc;color:#202b43}
+header{background:linear-gradient(120deg,#1746a2,#2878e8);color:white;padding:30px 18px;text-align:center}
+header h1{font-size:30px;margin:5px}
+header p{line-height:2}
+nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:15px}
+button{border:0;border-radius:12px;padding:12px 18px;background:#2464d8;color:white;font-size:15px;cursor:pointer}
+button:hover{opacity:.85}
+main{max-width:950px;margin:auto;padding:15px}
+.card{background:white;border-radius:18px;padding:20px;margin:15px 0;box-shadow:0 4px 18px #14264a12}
+h2{color:#2059b8}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+input{width:100%;padding:12px;margin:7px 0;border:1px solid #ccd5e5;border-radius:10px}
+.option{display:block;background:#edf3ff;color:#24395f;margin:9px 0;text-align:right;width:100%}
+#message{line-height:2}
+footer{text-align:center;padding:25px;color:#71809a}
+</style>
+</head>
+<body>
+<header>
+<h1>🌟 دنیای یادگیری 🌟</h1>
+<p>یاد بگیر، بازی کن، پیشرفت کن!</p>
+<p>آموزش هوشمند پایه پنجم دبستان</p>
+</header>
+
+<nav>
+<button onclick="show('home')">خانه</button>
+<button onclick="show('lessons')">درس‌ها</button>
+<button onclick="show('quiz')">آزمون</button>
+<button onclick="show('game')">بازی آموزشی</button>
+<button onclick="show('account')">حساب کاربری</button>
+<button onclick="show('ranking');loadRanking()">جدول رتبه‌بندی</button>
+</nav>
+
+<main>
+<section id="home" class="card">
+<h2>سلام به دانش‌آموز باهوش! 👋</h2>
+<p>به دنیای یادگیری خوش آمدی. اینجا می‌توانی بدون ثبت‌نام درس بخوانی، آزمون بدهی و بازی کنی.</p>
+<div class="grid">
+<div class="card"><h3>📚 آموزش</h3><p>یادگیری درس‌های پایه پنجم</p></div>
+<div class="card"><h3>📝 آزمون</h3><p>سنجش دانسته‌هایت</p></div>
+<div class="card"><h3>🎮 بازی</h3><p>یادگیری با سرگرمی</p></div>
+</div>
+</section>
+
+<section id="lessons" class="card" hidden>
+<h2>📚 درس‌های پایه پنجم</h2>
+<p>محتوای کامل کتاب‌های رسمی به‌تدریج به این بخش اضافه می‌شود.</p>
+<div class="grid">
+<div class="card"><h3>علوم پنجم</h3><p>درس اول: زنگ علوم</p><p>درس دوم: ماده تغییر می‌کند</p><p>درس سوم: رنگین‌کمان</p></div>
+<div class="card"><h3>ریاضی پنجم</h3><p>آموزش و تمرین ریاضی</p></div>
+<div class="card"><h3>فارسی پنجم</h3><p>خواندن و درک مطلب</p></div>
+<div class="card"><h3>مطالعات اجتماعی</h3><p>آشنایی با جامعه و ایران</p></div>
+</div>
+</section>
+
+<section id="quiz" class="card" hidden>
+<h2>📝 آزمون علوم</h2>
+<p id="question">کدام گزینه برای زندگی انسان ضروری است؟</p>
+<div id="answers">
+<button class="option" onclick="answer(0)">۱. آب</button>
+<button class="option" onclick="answer(1)">۲. پلاستیک</button>
+<button class="option" onclick="answer(2)">۳. آهن</button>
+</div>
+<p id="result"></p>
+<button onclick="nextQuestion()">سؤال بعدی</button>
+</section>
+
+<section id="game" class="card" hidden>
+<h2>🎮 بازی دانستنی‌ها</h2>
+<p>عدد درست را حدس بزن! یک عدد بین ۱ تا ۵ انتخاب کن.</p>
+<div class="grid">
+<button onclick="guess(1)">۱</button>
+<button onclick="guess(2)">۲</button>
+<button onclick="guess(3)">۳</button>
+<button onclick="guess(4)">۴</button>
+<button onclick="guess(5)">۵</button>
+</div>
+<p id="gameResult"></p>
+</section>
+
+<section id="account" class="card" hidden>
+<h2>👤 حساب کاربری</h2>
+<p>استفاده از سایت بدون حساب آزاد است. برای ذخیره امتیازها حساب بساز.</p>
+<h3>ثبت‌نام</h3>
+<input id="regUser" placeholder="نام کاربری">
+<input id="regPass" type="password" placeholder="رمز عبور (حداقل ۸ نویسه)">
+<button onclick="register()">ثبت‌نام</button>
+<hr>
+<h3>ورود</h3>
+<input id="loginUser" placeholder="نام کاربری">
+<input id="loginPass" type="password" placeholder="رمز عبور">
+<button onclick="login()">ورود</button>
+<p id="accountMessage"></p>
+</section>
+
+<section id="ranking" class="card" hidden>
+<h2>🏆 جدول رتبه‌بندی دانش‌آموزان</h2>
+<div id="rankList">برای دیدن رتبه‌ها، به اینترنت و سرور فعال نیاز است.</div>
+</section>
+</main>
+
+<footer>ساخته شده با ❤️ برای دانش‌آموزان ایران | دنیای یادگیری</footer>
+
+<script>
+const sections=['home','lessons','quiz','game','account','ranking'];
+function show(id){
+sections.forEach(s=>document.getElementById(s).hidden=s!==id);
+}
+let current=0,score=0;
+const questions=[
+{q:'کدام گزینه برای زندگی انسان ضروری است؟',a:['آب','پلاستیک','آهن'],c:0},
+{q:'آب در اثر گرما چه تغییری می‌کند؟',a:['یخ می‌زند','بخار می‌شود','سنگ می‌شود'],c:1},
+{q:'کدام مورد منبع نور طبیعی است؟',a:['لامپ','شمع','خورشید'],c:2}
+];
+function answer(i){
+if(i===questions[current].c){score+=10;document.getElementById('result').textContent='آفرین! پاسخ درست بود 🌟';}
+else{document.getElementById('result').textContent='اشکالی ندارد! دوباره تلاش کن 💪';}
+}
+function nextQuestion(){
+current=(current+1)%questions.length;
+let q=questions[current];
+document.getElementById('question').textContent=q.q;
+document.getElementById('answers').innerHTML=q.a.map((a,i)=>`<button class="option" onclick="answer(${i})">${a}</button>`).join('');
+document.getElementById('result').textContent='';
+}
+function guess(n){
+let target=Math.floor(Math.random()*5)+1;
+document.getElementById('gameResult').textContent=n===target?'آفرین! درست حدس زدی 🎉':'این بار نشد! عدد درست '+target+' بود. دوباره بازی کن!';
+}
+function getToken(){return localStorage.getItem('donyayeToken')}
+async function api(path,data){
+let r=await fetch('/api/'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+let j=await r.json();
+if(!r.ok)throw new Error(j.error||'خطایی رخ داد');
+return j;
+}
+async function register(){
+try{
+let j=await api('register',{username:regUser.value,password:regPass.value});
+localStorage.setItem('donyayeToken',j.token);
+accountMessage.textContent='ثبت‌نام موفق بود! خوش آمدی '+j.username;
+}catch(e){accountMessage.textContent=e.message}
+}
+async function login(){
+try{
+let j=await api('login',{username:loginUser.value,password:loginPass.value});
+localStorage.setItem('donyayeToken',j.token);
+accountMessage.textContent='ورود موفق بود! خوش آمدی '+j.username;
+}catch(e){accountMessage.textContent=e.message}
+}
+async function loadRanking(){
+try{
+let r=await fetch('/api/leaderboard');
+let users=await r.json();
+rankList.innerHTML=users.length?users.map((u,i)=>`${i+1}. ${u.username} — ${u.points} امتیاز`).join('<br>'):'هنوز امتیازی ثبت نشده است.';
+}catch(e){rankList.textContent='سرور هنوز راه‌اندازی نشده است.'}
+}
+</script>
+</body>
+</html>
